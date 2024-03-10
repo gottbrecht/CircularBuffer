@@ -53,7 +53,7 @@ class CircularBuffer {
 
         return this.buffer[this.readIndex];
     }
-    //utility methods
+    //utility methods rea
     isEmpty() {
         return this.count === 0;
     }
