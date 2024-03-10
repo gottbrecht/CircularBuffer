@@ -1,20 +1,20 @@
-const circularQueue = new CircularQueue(5);
+const circularBuffer = new CircularBuffer(5);
 
-circularQueue.add(1);
-circularQueue.add(2);
-circularQueue.add(3);
+circularBuffer.add(1);
+circularBuffer.add(2);
+circularBuffer.add(3);
 
-console.log(circularQueue.remove()); 
-console.log(circularQueue.remove()); 
+console.log(circularBuffer.remove()); 
+console.log(circularBuffer.remove()); 
 
-circularQueue.add(4);
-circularQueue.add(5);
+circularBuffer.add(4);
+circularBuffer.add(5);
 
-console.log(circularQueue.remove());
-console.log(circularQueue.remove()); 
-console.log(circularQueue.remove()); 
+console.log(circularBuffer.remove());
+console.log(circularBuffer.remove()); 
+console.log(circularBuffer.remove()); 
 
-circularQueue.remove();
+circularBuffer.remove();
 
 class CircularBuffer {
     constructor(capacity) {
@@ -25,7 +25,7 @@ class CircularBuffer {
         this.count = 0;
     }
 
-    add(item) {
+    add(item) { //adds item to circular buffer
         if (this.isFull()) {
             throw new Error("Buffer is full. Cannot add more items.");
         }
@@ -35,7 +35,7 @@ class CircularBuffer {
         this.count++;
     }
 
-    remove() {
+    remove() { //removes an item from the circular buffer, if buffer is empty it throws an error
         if (this.isEmpty()) {
             throw new Error("Buffer is empty. Cannot remove more items.");
         }
@@ -46,14 +46,14 @@ class CircularBuffer {
         return item;
     }
 
-    peek() {
+    peek() { //returns item at readIndex
         if (this.isEmpty()) {
             throw new Error("Buffer is empty. Cannot peek.");
         }
 
         return this.buffer[this.readIndex];
     }
-
+    //utility methods
     isEmpty() {
         return this.count === 0;
     }
@@ -70,29 +70,29 @@ class CircularBuffer {
         return this.capacity;
     }
 }
+//instance of CircularBuffer
+const circularBufferInstance = new CircularBuffer(5);
 
-const circularBuffer = new CircularBuffer(5);
+console.log(circularBufferInstance.isEmpty());
 
-console.log(circularBuffer.isEmpty());
+circularBufferInstance.add(1);
+circularBufferInstance.add(2);
+circularBufferInstance.add(3);
 
-circularBuffer.add(1);
-circularBuffer.add(2);
-circularBuffer.add(3);
+console.log(circularBufferInstance.size());
+console.log(circularBufferInstance.isFull());
 
-console.log(circularBuffer.size());
-console.log(circularBuffer.isFull());
+console.log(circularBufferInstance.peek());
 
-console.log(circularBuffer.peek());
+console.log(circularBufferInstance.remove()); 
+console.log(circularBufferInstance.size()); 
 
-console.log(circularBuffer.remove()); 
-console.log(circularBuffer.size()); 
+circularBufferInstance.add(4);
+circularBufferInstance.add(5);
+circularBufferInstance.add(6); 
 
-circularBuffer.add(4);
-circularBuffer.add(5);
-circularBuffer.add(6); 
+console.log(circularBufferInstance.remove()); //removes 2
+console.log(circularBufferInstance.remove()); //removes 3
+console.log(circularBufferInstance.remove()); //removes 4
 
-console.log(circularBuffer.remove()); //removes 2
-console.log(circularBuffer.remove()); //removes 3
-console.log(circularBuffer.remove()); //removes 4
-
-console.log(circularBuffer.isEmpty()); //true
+console.log(circularBufferInstance.isEmpty()); //true
